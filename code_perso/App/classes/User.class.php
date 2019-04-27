@@ -7,10 +7,16 @@ class User {
 
 	private $db;
 
+
+
+	// ----------------------------------------------------------------------------------------------------------------------------
+
 	public function  __construct() {
 		
 		$this->db = new Database;
 	}
+
+	// ----------------------------------------------------------------------------------------------------------------------------
 
 	/**
 	 * [userRegistration Méthode permettant de faire toutes les vérifications nécessaire lors d'un nouvel enregistrement]
@@ -22,7 +28,7 @@ class User {
 		$name 		= $data_post['name'];
 		$pseudo 	= $data_post['pseudo'];
 		$email 		= $data_post['email'];
-		$password 	= md5($data_post['password']);
+		$password 	= password_hash($data_post['password'], PASSWORD_DEFAULT);
 
 		// Initialisation de la méthode emailCheck qui permet de vérifier si le mail existe ou pas.
 		$check_email = $this->emailCheck($email);
@@ -69,8 +75,33 @@ class User {
 
 		}
 
-	}
 
+		// SI TOUTES LES VERIFICATIONS SONT CONCLUENTE, ON AJOUTE DANS LA BDD LES DATA DE L'UTILISATEUR
+		$sql = "INSERT INTO users (name, pseudo, email, password) VALUES (:name, :pseudo, :email, :password)";
+
+		$requete = $this->db->pdo->prepare($sql);
+		$requete->bindValue(':name', $name, PDO::PARAM_STR);
+		$requete->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+		$requete->bindValue(':email', $email, PDO::PARAM_STR);
+		$requete->bindValue(':password', $password, PDO::PARAM_STR);
+
+		$result = $requete->execute();
+
+		if ($result) {
+
+			$message = "<div class='alert alert-success'><strong>félicitation,</strong> vos données ont bien été envoyé au serveur.</div>";
+			return $message;
+
+		} else {
+
+			$message = "<div class='alert alert-danger'><strong>Error,</strong> Un soucis à été rencontré lors de l'insertion de vos données...</div>";
+			return $message;
+
+		}
+
+	} // Fin méthode userRegistration()
+
+	// ----------------------------------------------------------------------------------------------------------------------------
 
 	/**
 	 * [emailCheck Méthode permettant de récupérer les emails de la table users afin de savoir si elle existe ou non]
@@ -95,6 +126,8 @@ class User {
 			return false;
 		}
 
-	}
+	} // Fin méthode emailCheck()
 
-}
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+} // Fin class USER
