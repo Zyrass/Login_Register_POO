@@ -35,7 +35,14 @@ class User {
 		// CONDITION POUR TOUT LES CHAMPS
 		if ($name == "" OR $email == "" OR $password == "") {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> tous les champs ne doivent pas être vide!</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> tous les champs ne doivent pas être vide!
+				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+  			';
 			return $message;
 
 		}
@@ -43,25 +50,77 @@ class User {
 		// PSEUDO CONDITION
 		if (strlen($pseudo) > 0 AND strlen($pseudo) <= 5) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> le champ pseudo est trop court!</div>";
+			$message = '
+				<div class="alert alert-info alert-dismissible fade show">
+					<strong>Erreur,</strong> le champ pseudo est trop court!
+				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		} elseif ($pseudo == "") {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> le champ pseudo ne peut-être vide...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> le champ pseudo ne peut-être vide...
+				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		} elseif (preg_match('/[^a-z0-9_-]+$i/', $pseudo)) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> les caractères possible sont uniquement des alphas du numérique et le tirt ' - ' du 6 sur un clavier AZERTY.</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> les caractères possible sont uniquement des alphas du numérique et le tirt " - " du 6 sur un clavier AZERTY.
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
 		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		// EMAIL CONDITION
 		if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'est pas valide...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> l\'email saisit n\'est pas valide...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -69,7 +128,14 @@ class User {
 		// VERIFICATION DES EMAILS
 		if ($check_email == true) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit existe déjà dans la base de donnée...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> l\'email saisit existe déjà dans la base de donnée...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -88,12 +154,26 @@ class User {
 		// Condition permettant d'afficher un résultat de succès lors de la soumission de vos informations.
 		if ($result) {
 
-			$message = "<div class='alert alert-success'><strong>félicitation,</strong> vos données ont bien été envoyé au serveur.</div>";
+			$message = '
+				<div class="alert alert-success alert-dismissible fade show">
+					<strong>félicitation,</strong> vos données ont bien été envoyé au serveur.
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		} else {
 
-			$message = "<div class='alert alert-danger'><strong>Error,</strong> Un soucis à été rencontré lors de l'insertion de vos données...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Error,</strong> Un soucis à été rencontré lors de l\'insertion de vos données...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -170,7 +250,14 @@ class User {
 		// CONDITION POUR TOUT LES CHAMPS
 		if ($email == "" OR $password == "") {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> tous les champs ne doivent pas être vide!</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> tous les champs ne doivent pas être vide!
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -178,7 +265,14 @@ class User {
 		// EMAIL CONDITION
 		if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'est pas valide...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> veuillez saisir un email valide...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -186,7 +280,14 @@ class User {
 		// VERIFICATION DE L'EMAIL SI IL EXISTE DANS LA BASE DE DONNEE
 		if ($check_email == false) {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'existe pas dans la base de donnée...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> votre adresse E-mail est déjà existant dans la base de donnée...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
@@ -203,13 +304,27 @@ class User {
 			Session::set("name", $result->name); // POUR FETCH_ASSOC -> Session::set("name", $result['name']);
 			Session::set("pseudo", $result->pseudo); // POUR FETCH_ASSOC -> Session::set("pseudo", $result['pseudo']);
 			Session::set("email", $result->email); // POUR FETCH_ASSOC -> Session::set("email", $result['email']);
-			Session::set("loginMessage", "<div class='alert alert-success'><strong>Félicitation,</strong> vous êtes connecté!</div>");
+			Session::set("loginMessage", '
+				<div class="alert alert-success alert-dismissible fade show">
+					<strong>Félicitation,</strong> vous êtes connecté!
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close>
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+	  			</div>
+	  		');
 
 			header("Location:index.php");
 
 		} else {
 
-			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> aucune entrée retourné...</div>";
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Désolé,</strong> aucun utilisateur n\'a été trouvé dans notre base de donnée...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
 			return $message;
 
 		}
