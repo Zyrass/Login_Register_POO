@@ -7,8 +7,6 @@ class User {
 
 	private $db;
 
-
-
 	// ----------------------------------------------------------------------------------------------------------------------------
 
 	public function  __construct() {
@@ -74,7 +72,6 @@ class User {
 			return $message;
 
 		}
-
 
 		// SI TOUTES LES VERIFICATIONS SONT CONCLUENTE, ON AJOUTE DANS LA BDD LES DATA DE L'UTILISATEUR
 		$sql = "INSERT INTO users (name, pseudo, email, password) VALUES (:name, :pseudo, :email, :password)";

@@ -28,10 +28,10 @@ class Database {
 
 				die('Erreur de connexion avec la base de donnée...' . $e->getMessage());
 
-			}
+			} // Fin try / catch
 
-		}
+		} // Fin condition si il n'existe pas $this->pdo
 
-	}
+	} // Fin constructeur
 
-}
+} // Fin class Database
