@@ -324,4 +324,86 @@ class User {
 
 	}
 
+
+	public function getUserById($id) {
+
+		// Requête SQL
+		$sql = 'SELECT * FROM users WHERE id = :id LIMIT 1';
+
+		// Méthode preprare avec un paramètre nommé :email
+		$requete = $this->db->pdo->prepare($sql);
+		$requete->bindValue(':id', $id, PDO::PARAM_INT);
+		$requete->execute();
+
+		$result = $requete->fetch();
+
+		return $result;
+
+	}
+
+
+	public function userUpdate($userId, $data_post) {
+
+		$name 			= $data_post['name'];
+		$pseudo 		= $data_post['pseudo'];
+		$email 			= $data_post['email'];
+
+		// Initialisation de la méthode emailCheck qui permet de vérifier si le mail existe ou pas.
+		$check_email = $this->emailCheck($email);
+
+		// CONDITION POUR TOUT LES CHAMPS
+		if ($name == "" OR $pseudo == "" OR $email == "") {
+
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Erreur,</strong> tous les champs ne doivent pas être vide!
+				  	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+  			';
+			return $message;
+
+		}
+
+		// SI TOUTES LES VERIFICATIONS SONT CONCLUENTE, ON AJOUTE DANS LA BDD LES DATA DE L'UTILISATEUR
+		$sql = "UPDATE users set name = :name, pseudo = :pseudo, email = :email WHERE id = :id";
+
+		$requete = $this->db->pdo->prepare($sql);
+		$requete->bindValue(':name', $name, PDO::PARAM_STR);
+		$requete->bindValue(':pseudo', $pseudo, PDO::PARAM_STR);
+		$requete->bindValue(':email', $email, PDO::PARAM_STR);
+		$requete->bindValue(':id', $userId);
+
+		$result = $requete->execute();
+
+		// Condition permettant d'afficher un résultat de succès lors de la soumission de vos informations.
+		if ($result) {
+
+			$message = '
+				<div class="alert alert-success alert-dismissible fade show">
+					<strong>félicitation,</strong> mise à jour réussie des données utilisateur.
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
+			return $message;
+
+		} else {
+
+			$message = '
+				<div class="alert alert-danger alert-dismissible fade show">
+					<strong>Error,</strong> Un soucis à été rencontré lors de la mise à jour de vos données...
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	    				<span aria-hidden="true">&times;</span>
+	  				</button>
+				</div>
+			';
+			return $message;
+
+		}
+
+	} // Fin méthode userRegistration()
+
 } // Fin class USER

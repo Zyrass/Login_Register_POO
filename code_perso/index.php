@@ -85,7 +85,7 @@
 									<td><?= $data->name ?></td>
 									<td><?= $data->pseudo ?></td>
 									<td><?= $data->email ?></td>
-									<td><a href="profile.php?id=1" class="btn btn-outline-primary">Voir</a></td>
+									<td><a href="profile.php?id=<?= $data->id ?>" class="btn btn-outline-primary">Voir</a></td>
 								</tr>
 
 							<?php endforeach;
