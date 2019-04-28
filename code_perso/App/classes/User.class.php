@@ -85,30 +85,6 @@ class User {
 			return $message;
 
 		}
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		// EMAIL CONDITION
 		if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
@@ -330,5 +306,22 @@ class User {
 		}
 
 	} // Fin userLogin()
+
+
+
+	public function getUserData() {
+
+		// Requête SQL
+		$sql = 'SELECT * FROM users ORDER BY id DESC';
+
+		// Méthode preprare avec un paramètre nommé :email
+		$requete = $this->db->pdo->prepare($sql);
+		$requete->execute();
+
+		$result = $requete->fetchAll();
+
+		return $result;
+
+	}
 
 } // Fin class USER

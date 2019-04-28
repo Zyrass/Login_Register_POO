@@ -8,9 +8,6 @@
 
 	// Méthode statique permettant de vérifier si nous ne sommes pas connecté, et donc nous devons rediriger vers la page login.php
 	Session::checkSession();
-
-	// Création d'une nouvelle instance de la classe 'User'
-	$user = new User();
 ?>
 
 
@@ -60,45 +57,48 @@
 			<table class="table table-striped">
 	            <thead>
 	                <th width="20%"> Serial </th>
-	                <th width="20%"> Name </th>
-	                <th width="20%"> Username </th>
-	                <th width="20%"> Email Address </th>
+	                <th width="20%"> Nom de l'utilisateur </th>
+	                <th width="20%"> Pseudo </th>
+	                <th width="20%"> Adresse E-mail</th>
 	                <th width="20%"> Action </th>
 	            </thead>
 	            
 	            <tbody>
+					
+					<?php 
 
-					<tr>
-						<th>1</th>
-						<td>TOTO-TOTO</td>
-						<td>Toto</td>
-						<td>toto.@outlook.fr</td>
-						<td><a href="profile.php?id=1" class="btn btn-outline-primary">View</a></td>
-					</tr>
-	            	
-	            	<tr>
-						<th>2</th>
-						<td>TATA-TATA</td>
-						<td>Tata</td>
-						<td>tata@outlook.fr</td>
-						<td><a href="profile.php?id=2" class="btn btn-outline-primary">View</a></td>
-					</tr>
-	            	
-	            	<tr>
-						<th>3</th>
-						<td>TITI-TITI</td>
-						<td>Titi</td>
-						<td>titi@outlook.fr</td>
-						<td><a href="profile.php?id=3" class="btn btn-outline-primary">View</a></td>
-					</tr>
+						// Création d'une nouvelle instance de la classe 'User'
+						$user = new User();
 
-	            	<tr>
-						<th>4</th>
-						<td>TUTU-TUTU</td>
-						<td>Tutu</td>
-						<td>tutu@outlook.fr</td>
-						<td><a href="profile.php?id=4" class="btn btn-outline-primary">View</a></td>
-					</tr>	
+						$userData = $user->getUserData();
+
+						if ($userData) {
+
+							$numero_ligne = 0;
+							
+							foreach ($userData as $data) : 
+								
+								$numero_ligne++; ?>
+
+								<tr>
+									<th><?= '#'.$numero_ligne ?></th>
+									<td><?= $data->name ?></td>
+									<td><?= $data->pseudo ?></td>
+									<td><?= $data->email ?></td>
+									<td><a href="profile.php?id=1" class="btn btn-outline-primary">Voir</a></td>
+								</tr>
+
+							<?php endforeach;
+
+						} else { ?>
+
+								<tr>
+									<th colspan="5" class="text-center"> <span class="text-danger">Aucun utilisateur inscrit !!</span></th>
+								</tr>
+
+						<?php } // Fin condition $userData
+
+					?>				
 
 	            </tbody>
 			</table>
