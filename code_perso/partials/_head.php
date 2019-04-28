@@ -18,8 +18,10 @@
 
 	<?php 
 
+		// Condition permetant de vérifier si il existe un paramètre GET action passé dans l'url via la déconnexion (logout) 
 		if (isset($_GET['action']) && $_GET['action'] == 'logout') {
 			
+			// Destruction de la session via la méthode statique destroy() de la class SESSION
 			Session::destroy();
 
 		}

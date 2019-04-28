@@ -15,8 +15,10 @@
 
 	    				<?php 
 
+	    					// Méthode statique de la class Session permetant d'associer une session id à notre variable $id
 	    					$id = Session::get("id");
 
+	    					// Méthode statique de la class Session permetant d'associer une session login à notre variable $userLogin
 	    					$userLogin = Session::get('login');
 
 	    					// Condition permettant de savoir si nous sommes connecté Si oui nous affichons HOME / Profile / Logout

@@ -12,6 +12,7 @@ class User {
 	public function  __construct() {
 		
 		$this->db = new Database;
+		
 	}
 
 	// ----------------------------------------------------------------------------------------------------------------------------
@@ -84,6 +85,7 @@ class User {
 
 		$result = $requete->execute();
 
+		// Condition permettant d'afficher un résultat de succès lors de la soumission de vos informations.
 		if ($result) {
 
 			$message = "<div class='alert alert-success'><strong>félicitation,</strong> vos données ont bien été envoyé au serveur.</div>";
@@ -127,6 +129,12 @@ class User {
 
 	// ----------------------------------------------------------------------------------------------------------------------------
 	
+	/**
+	 * [getLoginUser Méthode permettant de récupérer l'intégralité des champs de la table "users"]
+	 * @param  [type string] $email    [E-mail de l'utilisateur]
+	 * @param  [type string] $password [Password de l'utilisateur]
+	 * @return [type variable]         [Retourne le résultat de la requête SQL exécuté]
+	 */
 	public function getLoginUser($email, $password) {
 
 		// Requête SQL
@@ -142,10 +150,15 @@ class User {
 
 		return $result;
 
-	}
+	} // Fin getLoginUser()
 
 	// ----------------------------------------------------------------------------------------------------------------------------
 
+	/**
+	 * [userLogin Méthode permettant de controller l'email et le password saisit par l'utilisateur.]
+	 * @param  [type string] $data_post [E-mail récupéré via la superglobal POST]
+	 * @return [type]            [description]
+	 */
 	public function userLogin($data_post) {
 
 		$email 			= $data_post['email'];
@@ -159,6 +172,7 @@ class User {
 
 			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> tous les champs ne doivent pas être vide!</div>";
 			return $message;
+
 		}
 
 		// EMAIL CONDITION
@@ -169,7 +183,7 @@ class User {
 
 		}
 
-		// VERIFICATION DES EMAILS
+		// VERIFICATION DE L'EMAIL SI IL EXISTE DANS LA BASE DE DONNEE
 		if ($check_email == false) {
 
 			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'existe pas dans la base de donnée...</div>";
@@ -177,8 +191,10 @@ class User {
 
 		}
 
+		// Via la méthode getLoginUser, nous récupérons tous les champs.
 		$result = $this->getLoginUser($email, $password);
 
+		// Condition permettant d'initialiser les SESSIONS si le retour de la méthode getLoginUser est valide
 		if ($result) {
 			
 			Session::initSession();
@@ -198,7 +214,6 @@ class User {
 
 		}
 
-
-	}
+	} // Fin userLogin()
 
 } // Fin class USER
