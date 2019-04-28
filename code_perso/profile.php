@@ -2,6 +2,9 @@
     
     // inclusion du header
     include 'partials/_head.php';
+
+    // Méthode statique permettant de vérifier si nous ne sommes pas connecté, et donc nous devons rediriger vers la page login.php
+    Session::checkSession();
 ?>
 
 <div class="container">

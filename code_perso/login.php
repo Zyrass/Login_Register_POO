@@ -5,6 +5,9 @@
 
 	// inclusion de ma classe USER qui devrait être inclut dans le model.
 	include 'App/classes/User.class.php';
+
+	// Méthode statique permettant de vérifier si l'on est connecté, et si oui nous devons rediriger vers la page index.php
+	Session::checkLogin();
 ?>
 
 

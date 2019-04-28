@@ -12,21 +12,39 @@
 
 	  			<div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
 	    			<ul class="navbar-nav">
-					    <li class="nav-item active">
-					        <a class="nav-link" href="./index.php">Home</a>
-					      </li>
-					      <li class="nav-item">
-					        <a class="nav-link" href="./register.php">Register</a>
-					      </li>
-					      <li class="nav-item">
-					        <a class="nav-link" href="./login.php">Login</a>
-					      </li>
-					      <li class="nav-item">
-					        <a class="nav-link" href="./profile.php">Profile</a>
-					      </li>
-					      <li class="nav-item">
-					        <a class="nav-link" href="./logout.php">Logout</a>
-					      </li>
+
+	    				<?php 
+
+	    					$id = Session::get("id");
+
+	    					$userLogin = Session::get('login');
+
+	    					// Condition permettant de savoir si nous sommes connecté Si oui nous affichons HOME / Profile / Logout
+	    					// Si non nous affichons Register et Login seulement.
+	    					if ($userLogin == true) : ?>
+	    						
+			    				<li class="nav-item active">
+							    	<a class="nav-link" href="./index.php">Home</a>
+							    </li>
+							    <li class="nav-item">
+							    	<a class="nav-link" href="./profile.php">Profile</a>
+							    </li>
+							    <li class="nav-item">
+							    	<a class="nav-link" href="?action=logout">Logout</a>
+							    </li>
+
+							<?php else : ?>
+
+					    		<li class="nav-item">
+							    	<a class="nav-link" href="./register.php">Register</a>
+							    </li>
+							    <li class="nav-item">
+					    			<a class="nav-link" href="./login.php">Login</a>
+					    		</li>
+
+					    	<?php endif; 
+
+					    ?>
 	    			</ul>
 	  			</div>
 					

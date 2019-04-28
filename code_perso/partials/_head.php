@@ -16,6 +16,16 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>POO - Register/Login</title>
 
+	<?php 
+
+		if (isset($_GET['action']) && $_GET['action'] == 'logout') {
+			
+			Session::destroy();
+
+		}
+
+	?>
+
 	<!-- CSS BOOTSTRAP 4.3.1 -->
 	<link rel="stylesheet" href="./vendors/bootstrap/css/bootstrap.min.css">
 

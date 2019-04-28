@@ -6,6 +6,10 @@
 	// inclusion de ma classe USER qui devrait être inclut dans le model.
 	include 'App/classes/User.class.php';
 
+	// Méthode statique permettant de vérifier si nous ne sommes pas connecté, et donc nous devons rediriger vers la page login.php
+	Session::checkSession();
+
+	// Création d'une nouvelle instance de la classe 'User'
 	$user = new User();
 ?>
 
@@ -14,10 +18,13 @@
 
 	<?php 
 		
+		// Via la méthode statique 'get', nous récupérons le message de confirmation comme quoi la connexion a belle et bien été établie.
 		$loginMessage = Session::get("loginMessage");
 
+		// Condition permettant de vérifier l'existance de la méthode get précédemment cité.
 		if (isset($loginMessage)) {
 			
+			// Affichage du message.
 			echo '<br />' . $loginMessage;
 
 		}
@@ -31,12 +38,14 @@
 	                <strong>
 
 	                   <?php 
-
+	                   		// Via la méthode statique 'get', nous récupérons le pseudo.
 		                   	$pseudo = Session::get("pseudo");
 
+		                   	// Condition permettant de vérifier l'existance de la méthode get précédemment cité.
 		                   	if (isset($pseudo)) {
 		                   		
-		                   		echo $pseudo;
+		                   		// Affichage du pseudo
+		                   		echo  '<span class="text-info">' . ucfirst($pseudo) . '</span>';
 
 		                   	}
 
