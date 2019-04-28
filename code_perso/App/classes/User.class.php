@@ -1,6 +1,6 @@
 <?php
 
-include_once 'Session.classe.php';
+include_once 'Session.class.php';
 include 'Database.class.php';
 
 class User {
@@ -23,15 +23,15 @@ class User {
 	 */
 	public function userRegistration($data_post) {
 
-		$name 		= $data_post['name'];
-		$pseudo 	= $data_post['pseudo'];
-		$email 		= $data_post['email'];
-		$password 	= password_hash($data_post['password'], PASSWORD_DEFAULT);
+		$name 			= $data_post['name'];
+		$pseudo 		= $data_post['pseudo'];
+		$email 			= $data_post['email'];
+		$password 		= md5($data_post['password']);
 
 		// Initialisation de la méthode emailCheck qui permet de vérifier si le mail existe ou pas.
 		$check_email = $this->emailCheck($email);
 
-		// NAME CONDITION
+		// CONDITION POUR TOUT LES CHAMPS
 		if ($name == "" OR $email == "" OR $password == "") {
 
 			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> tous les champs ne doivent pas être vide!</div>";
@@ -40,7 +40,7 @@ class User {
 		}
 
 		// PSEUDO CONDITION
-		if (strlen($pseudo) > 0 AND strlen($pseudo) < 5) {
+		if (strlen($pseudo) > 0 AND strlen($pseudo) <= 5) {
 
 			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> le champ pseudo est trop court!</div>";
 			return $message;
@@ -126,5 +126,79 @@ class User {
 	} // Fin méthode emailCheck()
 
 	// ----------------------------------------------------------------------------------------------------------------------------
+	
+	public function getLoginUser($email, $password) {
+
+		// Requête SQL
+		$sql = 'SELECT * FROM users WHERE email = :email AND password = :password LIMIT 1';
+
+		// Méthode preprare avec un paramètre nommé :email
+		$requete = $this->db->pdo->prepare($sql);
+		$requete->bindValue(':email', $email, PDO::PARAM_STR);
+		$requete->bindValue(':password', $password, PDO::PARAM_STR);
+		$requete->execute();
+
+		$result = $requete->fetch();
+
+		return $result;
+
+	}
+
+	// ----------------------------------------------------------------------------------------------------------------------------
+
+	public function userLogin($data_post) {
+
+		$email 			= $data_post['email'];
+		$password 		= md5($data_post['password']);
+
+		// Initialisation de la méthode emailCheck qui permet de vérifier si le mail existe ou pas.
+		$check_email = $this->emailCheck($email);
+
+		// CONDITION POUR TOUT LES CHAMPS
+		if ($email == "" OR $password == "") {
+
+			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> tous les champs ne doivent pas être vide!</div>";
+			return $message;
+		}
+
+		// EMAIL CONDITION
+		if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {
+
+			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'est pas valide...</div>";
+			return $message;
+
+		}
+
+		// VERIFICATION DES EMAILS
+		if ($check_email == false) {
+
+			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> l'email saisit n'existe pas dans la base de donnée...</div>";
+			return $message;
+
+		}
+
+		$result = $this->getLoginUser($email, $password);
+
+		if ($result) {
+			
+			Session::initSession();
+			Session::set("login", true);
+			Session::set("id", $result->id); // POUR FETCH_ASSOC -> Session::set("id", $result['id']);
+			Session::set("name", $result->name); // POUR FETCH_ASSOC -> Session::set("name", $result['name']);
+			Session::set("pseudo", $result->pseudo); // POUR FETCH_ASSOC -> Session::set("pseudo", $result['pseudo']);
+			Session::set("email", $result->email); // POUR FETCH_ASSOC -> Session::set("email", $result['email']);
+			Session::set("loginMessage", "<div class='alert alert-success'><strong>Félicitation,</strong> vous êtes connecté!</div>");
+
+			header("Location:index.php");
+
+		} else {
+
+			$message = "<div class='alert alert-danger'><strong>Erreur,</strong> aucune entrée retourné...</div>";
+			return $message;
+
+		}
+
+
+	}
 
 } // Fin class USER

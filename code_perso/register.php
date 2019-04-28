@@ -23,48 +23,52 @@
 
 ?>
 
-<div class="card">
-	<div class="card-header">
-		<h2>User Registration </h2>
-	</div> <!-- End card-header -->
+<div class="container">
 
-	<div class="card-body">
-		<div style="max-width: 600px; margin: 0 auto">
-	
-			<?php
+	<div class="card">
+		<div class="card-header">
+			<h2>User Registration </h2>
+		</div> <!-- End card-header -->
 
-				// Condition permettant de voir si le(s) message(s) d'erreur(s) existe.
-				if (isset($userRegister)) {
+		<div class="card-body">
+			<div style="max-width: 600px; margin: 0 auto">
+		
+				<?php
 
-					// Si oui, on affiche le message d'erreur adéquat.
-					echo $userRegister;
+					// Condition permettant de voir si le(s) message(s) d'erreur(s) existe.
+					if (isset($userRegister)) {
 
-				}
+						// Si oui, on affiche le message d'erreur adéquat.
+						echo $userRegister;
 
-			?>
+					}
 
-			<form action="" method="POST">
-				<div class="form-group">
-					<label for="name"> Your Name </label>
-					<input type="text" id="name" name="name" class="form-control"   />
-				</div> <!-- End form-group -->
-				<div class="form-group">
-					<label for="pseudo"> User Name </label>
-					<input type="text" id="pseudo" name="pseudo" class="form-control"  />
-				</div> <!-- End form-group -->
-				<div class="form-group">
-					<label for="email"> Email Address </label>
-					<input type="text" id="email" name="email" class="form-control"   />
-				</div> <!-- End form-group -->
-				<div class="form-group">
-					<label for="password"> Password </label>
-					<input type="password" id="password" name="password" class="form-control"  />
-				</div> <!-- End form-group -->
-				<button type="submit" name="register" class="btn btn-outline-success"> Submit </button>
-			</form>
-		</div> <!-- End style -->
-	</div> <!-- End card-body -->
-</div> <!-- End card -->
+				?>
+
+				<form action="" method="POST">
+					<div class="form-group">
+						<label for="name"> Votre Nom </label>
+						<input type="text" id="name" name="name" class="form-control"   />
+					</div> <!-- End form-group -->
+					<div class="form-group">
+						<label for="pseudo"> Pseudo </label>
+						<input type="text" id="pseudo" name="pseudo" class="form-control"  />
+					</div> <!-- End form-group -->
+					<div class="form-group">
+						<label for="email"> Adresse E-mail </label>
+						<input type="text" id="email" name="email" class="form-control"   />
+					</div> <!-- End form-group -->
+					<div class="form-group">
+						<label for="password"> Mot de passe </label>
+						<input type="password" id="password" name="password" class="form-control"  />
+					</div> <!-- End form-group -->
+					<button type="submit" name="register" class="btn btn-outline-success"> Submit </button>
+				</form>
+			</div> <!-- End style -->
+		</div> <!-- End card-body -->
+	</div> <!-- End card -->
+
+</div>
 
 <?php 
 	

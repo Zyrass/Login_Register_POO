@@ -19,7 +19,7 @@ class Database {
 				$link = new PDO("mysql:host=" . $this->host_db . ";dbname=" . $this->name_db . ";charset=". $this->charset_db, $this->user_db, $this->pass_db);
 
 				$link->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-				// $link->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+				$link->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ); // FETCH_ASSSOC possible aussi...
 				// $link->exec("SET CHARACTER SET utf8");
 
 				$this->pdo = $link;

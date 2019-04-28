@@ -1,3 +1,14 @@
+<?php 
+
+	$filepath = realpath(dirname(__FILE__));
+	
+	// inclusion de ma classe USER qui devrait être inclut dans le model.
+	include $filepath.'/../App/classes/Session.class.php';
+
+	Session::initSession();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
